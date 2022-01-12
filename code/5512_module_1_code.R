@@ -14,3 +14,11 @@ nfhs <- read_dta("raw_data/IAHR52FL.dta")
 
 # Subset data to keep variables between 'hhid' and 'shstruc'
 nfhs_hhid_shstruc <- select(nfhs, hhid:shstruc)
+
+# Plot the distribution of the number of listed household members for the 
+# entire sample. Export plot from Rstudio. hv009 = number of household members
+ggplot(data = nfhs_hhid_shstruc, mapping = aes(x = hv009)) +
+  geom_histogram(fill = "black", binwidth = 1) +
+  xlab("Number of Household Members") +
+  ylab("Count") +
+  theme_minimal()

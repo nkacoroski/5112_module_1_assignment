@@ -22,3 +22,23 @@ ggplot(data = nfhs_hhid_shstruc, mapping = aes(x = hv009)) +
   xlab("Number of Household Members") +
   ylab("Count") +
   theme_minimal()
+
+# Create a new data frame with only urban households (hv025)
+urban_household <- filter(nfhs, hv025 == 1)
+
+# Create a boxplot that shows the distribution of household size by type of urban area
+# using hv026 (place of residence) as type of urban area. 
+ggplot(data = urban_household, mapping = aes(x = factor(hv026), y = hv009)) + 
+  geom_boxplot() +
+  scale_x_discrete(labels = c("Large City","Small City", "Town")) +
+  xlab("Type of Urban Area") +
+  ylab("Number of Household Members") +
+  theme_minimal()
+
+# Means and medians of the number of household members by type of urban area
+urban_household %>%
+  group_by(factor(hv026)) %>%
+  summarise(
+    mean_size = mean(hv009),
+    median_size = median(hv009)
+  )
